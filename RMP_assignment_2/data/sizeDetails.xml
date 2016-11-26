@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sizes>
-<pixelSize size="20" size2="35"/>
+<pixelSize size="25" size2="35" size3="20"/>
+<rotation rotate="25"/>
+<rotation rotate="45"/>
+<rotation rotate="50"/>
+<rotation rotate="75"/>
+<rotation rotate="90"/>
 </sizes>

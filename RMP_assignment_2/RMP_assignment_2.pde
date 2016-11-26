@@ -1,8 +1,13 @@
 import processing.video.*;
+import ddf.minim.*;
+
+Minim minim;
+AudioInput in;
 
 Capture video;
 int pixelSize;
 int pixelSize2;
+int pixelSize3;
 XML xml;
 
 void setup() {
@@ -12,7 +17,12 @@ void setup() {
   XML psize = xml.getChild("pixelSize");
   pixelSize = psize.getInt("size");
   pixelSize2 = psize.getInt("size2");
+  pixelSize3 = psize.getInt("size3");
   colorMode(RGB, 255, 255, 255, 100);
+  
+  minim = new Minim(this);
+  in = minim.getLineIn();
+  
   video = new Capture(this, width, height);
   video.start();  
   background(0);
@@ -33,7 +43,7 @@ void draw() {
         float g = green(video.pixels[loc]);
         float b = blue(video.pixels[loc]);
         color c = color(r, g, b, 85);
-        float range = 150;
+        float range = in.mix.level()*width;
       float dis = dist(x,y,width/2,height/2);
       
       if(dis<range){
@@ -45,7 +55,7 @@ void draw() {
         rectMode(CENTER);
         fill(c);
         noStroke();
-        rect(0, 0, pixelSize+5, pixelSize+5);
+        rect(0, 0, pixelSize, pixelSize);
         popMatrix();
       }
       }
@@ -60,7 +70,7 @@ void draw() {
         float g = green(video.pixels[loc]);
         float b = blue(video.pixels[loc]);
         color c = color(r, g, b, 85);
-        float range = 150;
+        float range = in.mix.level()*width;
       float dis = dist(x,y,width/2,height/2);
       
       if(dis<range){
@@ -72,7 +82,7 @@ void draw() {
         rectMode(CENTER);
         fill(c);
         noStroke();
-        ellipse(0, 0, pixelSize, pixelSize2);
+        ellipse(0, 0, pixelSize3, pixelSize2);
         popMatrix();
       }
       }
