@@ -45,7 +45,7 @@ void draw() {
         rectMode(CENTER);
         fill(c);
         noStroke();
-        rect(0, 0, pixelSize, pixelSize);
+        rect(0, 0, pixelSize+5, pixelSize+5);
         popMatrix();
       }
       }
