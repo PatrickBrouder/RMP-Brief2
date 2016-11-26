@@ -40,6 +40,8 @@ void draw() {
         
         pushMatrix();
         translate(x, y);
+        int rt=int(random(5,355));
+        rotate(rt);
         rectMode(CENTER);
         fill(c);
         noStroke();
@@ -65,7 +67,8 @@ void draw() {
         
         pushMatrix();
         translate(x, y);
-        
+        int rt=int(random(5,355));
+        rotate(rt);
         rectMode(CENTER);
         fill(c);
         noStroke();
