@@ -14,7 +14,7 @@ int pixelSize3;
 XML xml;
 int noRotations;
 int rangeDefault;
-
+XML[] rotations;
 boolean ellip= false;
 boolean rect= false;
 void setup() {
@@ -29,7 +29,7 @@ void setup() {
   rangeDefault = range.getInt("range");
   colorMode(RGB, 255, 255, 255, 100);
   
-  XML[] rotations = xml.getChildren("rotation");
+  rotations = xml.getChildren("rotation");
   noRotations = rotations.length;
   
   minim = new Minim(this);
@@ -46,7 +46,7 @@ void draw() {
   XML xmlResponse = loadXML(url);
   XML temperatureNode = xmlResponse.getChild("temperature");
   temperature = (int)(temperatureNode.getFloat("value")-273.15);
-  
+
   if (video.available()) {
     video.read();
     video.loadPixels();
@@ -74,10 +74,10 @@ void drawShape(){
         float g = green(video.pixels[loc]);
         float b = blue(video.pixels[loc]);
         if(temperature<8){
-          b+=20;
+          b+=temperature+5;
         }
-        if(temperature>=9){
-          r+=20;
+        if(temperature>8){
+          r+=temperature+5;
         }
         color c = color(r, g, b, 85);
         float range = in.mix.level()*width;
@@ -89,8 +89,9 @@ void drawShape(){
         
         pushMatrix();
         translate(x, y);
-        int rt=int(random(0,noRotations));
-        rotate(rt);
+        int rt=int(random(0,noRotations-1));
+        int rt2= rotations[rt].getInt("rotate");
+        rotate(rt2);
         rectMode(CENTER);
         
         fill(c);
