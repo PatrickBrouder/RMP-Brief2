@@ -9,6 +9,7 @@ int pixelSize;
 int pixelSize2;
 int pixelSize3;
 XML xml;
+int noRotations;
 
 void setup() {
   size(640, 480);
@@ -19,6 +20,9 @@ void setup() {
   pixelSize2 = psize.getInt("size2");
   pixelSize3 = psize.getInt("size3");
   colorMode(RGB, 255, 255, 255, 100);
+  
+  XML[] rotations = xml.getChildren("rotation");
+  noRotations = rotations.length;
   
   minim = new Minim(this);
   in = minim.getLineIn();
@@ -52,7 +56,7 @@ void draw() {
         
         pushMatrix();
         translate(x, y);
-        int rt=int(random(5,355));
+        int rt=int(random(0,noRotations));
         rotate(rt);
         rectMode(CENTER);
         fill(c);
@@ -81,7 +85,7 @@ void draw() {
         
         pushMatrix();
         translate(x, y);
-        int rt=int(random(5,355));
+        int rt=int(random(0,noRotations));
         rotate(rt);
         rectMode(CENTER);
         fill(c);
