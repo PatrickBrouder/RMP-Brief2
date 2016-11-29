@@ -43,12 +43,12 @@ void draw() {
     video.read();
     video.loadPixels();
     image(video,0,0);
-    if(key=='r' || rect ==true){
+    if(key=='r'){
       rect=true;
       ellip=false;
       drawShape();
     }
-    if(key=='e' || ellip ==true){
+    if(key=='e'){
       ellip=true;
       rect=false;
       drawShape();
