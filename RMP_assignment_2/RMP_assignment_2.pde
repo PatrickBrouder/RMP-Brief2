@@ -45,7 +45,9 @@ void draw() {
         color c = color(r, g, b, 85);
         float range = in.mix.level()*width;
       float dis = dist(x,y,width/2,height/2);
-      
+      if(range<75){
+        range+=70;
+      }
       if(dis<range){
         
         pushMatrix();
@@ -72,7 +74,9 @@ void draw() {
         color c = color(r, g, b, 85);
         float range = in.mix.level()*width;
       float dis = dist(x,y,width/2,height/2);
-      
+      if(range<75){
+        range+=70;
+      }
       if(dis<range){
         
         pushMatrix();
