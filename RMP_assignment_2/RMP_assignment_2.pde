@@ -74,10 +74,10 @@ void drawShape(){
         float g = green(video.pixels[loc]);
         float b = blue(video.pixels[loc]);
         if(temperature<8){
-          b+=25;
+          b+=20;
         }
         if(temperature>=9){
-          r+=25;
+          r+=20;
         }
         color c = color(r, g, b, 85);
         float range = in.mix.level()*width;
