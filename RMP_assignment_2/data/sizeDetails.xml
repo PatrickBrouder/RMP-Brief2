@@ -10,4 +10,5 @@
 <rotation rotate="60"/>
 <rotation rotate="70"/>
 <rotation rotate="80"/>
+<defaultRange range="70"/>
 </sizes>

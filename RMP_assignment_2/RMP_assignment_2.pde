@@ -10,7 +10,7 @@ int pixelSize2;
 int pixelSize3;
 XML xml;
 int noRotations;
-
+int rangeDefault;
 void setup() {
   size(640, 480);
   frameRate(30);
@@ -19,6 +19,8 @@ void setup() {
   pixelSize = psize.getInt("size");
   pixelSize2 = psize.getInt("size2");
   pixelSize3 = psize.getInt("size3");
+  XML range = xml.getChild("defaultRange");
+  rangeDefault = range.getInt("range");
   colorMode(RGB, 255, 255, 255, 100);
   
   XML[] rotations = xml.getChildren("rotation");
@@ -49,8 +51,8 @@ void draw() {
         color c = color(r, g, b, 85);
         float range = in.mix.level()*width;
       float dis = dist(x,y,width/2,height/2);
-      if(range<75){
-        range+=70;
+      if(range<rangeDefault){
+        range+=rangeDefault;
       }
       if(dis<range){
         
@@ -78,8 +80,8 @@ void draw() {
         color c = color(r, g, b, 85);
         float range = in.mix.level()*width;
       float dis = dist(x,y,width/2,height/2);
-      if(range<75){
-        range+=70;
+      if(range<rangeDefault){
+        range+=rangeDefault;
       }
       if(dis<range){
         
