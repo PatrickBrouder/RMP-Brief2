@@ -11,6 +11,9 @@ int pixelSize3;
 XML xml;
 int noRotations;
 int rangeDefault;
+
+boolean ellip= false;
+boolean rect= false;
 void setup() {
   size(640, 480);
   frameRate(30);
@@ -40,64 +43,52 @@ void draw() {
     video.read();
     video.loadPixels();
     image(video,0,0);
-    if(key=='r'){
-    for (int x = 0; x < video.width; x+=20) {
-      for (int y = 0; y < video.height; y+=20) {
-        int loc = x + y*video.width;
-      
-        float r = red(video.pixels[loc]);
-        float g = green(video.pixels[loc]);
-        float b = blue(video.pixels[loc]);
-        color c = color(r, g, b, 85);
-        float range = in.mix.level()*width;
-      float dis = dist(x,y,width/2,height/2);
-      if(range<rangeDefault){
-        range+=rangeDefault;
-      }
-      if(dis<range){
-        
-        pushMatrix();
-        translate(x, y);
-        int rt=int(random(0,noRotations));
-        rotate(rt);
-        rectMode(CENTER);
-        fill(c);
-        noStroke();
-        rect(0, 0, pixelSize, pixelSize);
-        popMatrix();
-      }
-      }
+    if(key=='r' || rect ==true){
+      rect=true;
+      ellip=false;
+      drawShape();
     }
-    }
-    if(key=='e'){
-    for (int x = 0; x < video.width; x+=20) {
-      for (int y = 0; y < video.height; y+=20) {
-        int loc = x + y*video.width;
-      
-        float r = red(video.pixels[loc]);
-        float g = green(video.pixels[loc]);
-        float b = blue(video.pixels[loc]);
-        color c = color(r, g, b, 85);
-        float range = in.mix.level()*width;
-      float dis = dist(x,y,width/2,height/2);
-      if(range<rangeDefault){
-        range+=rangeDefault;
-      }
-      if(dis<range){
-        
-        pushMatrix();
-        translate(x, y);
-        int rt=int(random(0,noRotations));
-        rotate(rt);
-        rectMode(CENTER);
-        fill(c);
-        noStroke();
-        ellipse(0, 0, pixelSize3, pixelSize2);
-        popMatrix();
-      }
-      }
-    }
+    if(key=='e' || ellip ==true){
+      ellip=true;
+      rect=false;
+      drawShape();
     }
   }
 
+}
+
+void drawShape(){
+    for (int x = 0; x < video.width; x+=20) {
+      for (int y = 0; y < video.height; y+=20) {
+        int loc = x + y*video.width;
+      
+        float r = red(video.pixels[loc]);
+        float g = green(video.pixels[loc]);
+        float b = blue(video.pixels[loc]);
+        color c = color(r, g, b, 85);
+        float range = in.mix.level()*width;
+      float dis = dist(x,y,width/2,height/2);
+      if(range<rangeDefault){
+        range+=rangeDefault;
+      }
+      if(dis<range){
+        
+        pushMatrix();
+        translate(x, y);
+        int rt=int(random(0,noRotations));
+        rotate(rt);
+        rectMode(CENTER);
+        fill(c);
+        noStroke();
+        if(rect==true){
+        rect(0, 0, pixelSize, pixelSize);
+        }
+        if(ellip==true){
+        ellipse(0, 0, pixelSize3, pixelSize2);
+        }
+        popMatrix();
+      }
+      }
+    }
+  
 }
