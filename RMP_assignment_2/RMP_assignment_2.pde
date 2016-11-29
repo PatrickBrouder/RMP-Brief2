@@ -4,6 +4,9 @@ import ddf.minim.*;
 Minim minim;
 AudioInput in;
 
+String url="http://api.openweathermap.org/data/2.5/weather?q=Clonmel&APPID=f2333ff01aff299c491d2be107b101b1&mode=xml";
+int temperature;
+
 Capture video;
 int pixelSize;
 int pixelSize2;
@@ -39,6 +42,11 @@ void setup() {
 
 
 void draw() { 
+  
+  XML xmlResponse = loadXML(url);
+  XML temperatureNode = xmlResponse.getChild("temperature");
+  temperature = (int)(temperatureNode.getFloat("value")-273.15);
+  
   if (video.available()) {
     video.read();
     video.loadPixels();
@@ -65,6 +73,12 @@ void drawShape(){
         float r = red(video.pixels[loc]);
         float g = green(video.pixels[loc]);
         float b = blue(video.pixels[loc]);
+        if(temperature<8){
+          b+=25;
+        }
+        if(temperature>=9){
+          r+=25;
+        }
         color c = color(r, g, b, 85);
         float range = in.mix.level()*width;
       float dis = dist(x,y,width/2,height/2);
@@ -78,17 +92,18 @@ void drawShape(){
         int rt=int(random(0,noRotations));
         rotate(rt);
         rectMode(CENTER);
+        
         fill(c);
         noStroke();
         if(rect==true){
-        rect(0, 0, pixelSize, pixelSize);
+        rect(0, 0, pixelSize+temperature, pixelSize+temperature);
         }
         if(ellip==true){
-        ellipse(0, 0, pixelSize3, pixelSize2);
+        ellipse(0, 0, pixelSize3+temperature, pixelSize2+temperature);
         }
         popMatrix();
       }
       }
     }
-  
+
 }
